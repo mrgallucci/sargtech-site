@@ -1,0 +1,116 @@
+(function () {
+  "use strict";
+  var C = window.SARGTECH_CONFIG || {};
+  function safe(fn, fb) { try { return fn(); } catch (e) { return fb; } }
+
+  /* Menu móvel */
+  var hd = document.querySelector(".hd"), bt = document.querySelector(".burger");
+  if (hd && bt) {
+    bt.addEventListener("click", function () {
+      var o = hd.classList.toggle("open");
+      bt.setAttribute("aria-expanded", String(o));
+      bt.setAttribute("aria-label", o ? "Fechar menu" : "Abrir menu");
+    });
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && hd.classList.contains("open")) { bt.click(); bt.focus(); }
+    });
+  }
+  var y = document.getElementById("year"); if (y) y.textContent = new Date().getFullYear();
+
+  /* Atribuição: utm_*, referrer e URL da landing (guardados para as próximas páginas da visita) */
+  var KEY = "sargtech_attr_v1", UTM = ["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term"];
+  function attribution() {
+    var stored = safe(function () { return JSON.parse(sessionStorage.getItem(KEY) || "null"); }, null) || {};
+    var qs = new URLSearchParams(window.location.search), cur = {}, has = false;
+    UTM.forEach(function (k) { var v = qs.get(k); if (v) { cur[k] = v.slice(0, 200); has = true; } });
+    if (has) {
+      stored = Object.assign({}, cur, { referrer: (document.referrer || "").slice(0, 500), landing_url: window.location.href.slice(0, 500) });
+    } else if (!stored.landing_url) {
+      stored.referrer = (document.referrer || "").slice(0, 500);
+      stored.landing_url = window.location.href.slice(0, 500);
+    }
+    safe(function () { sessionStorage.setItem(KEY, JSON.stringify(stored)); });
+    return stored;
+  }
+  var ATTR = attribution();
+
+  /* Origem do tráfego (mesma regra da landing atual do e-book): utm_source, senão domínio do referrer, senão "direto". */
+  function trafficSource() {
+    var us = new URLSearchParams(window.location.search).get("utm_source") || ATTR.utm_source;
+    if (us) return us.trim().toLowerCase().slice(0, 100);
+    var ref = ATTR.referrer || "";
+    if (!ref) return "direto";
+    try {
+      var h = new URL(ref).hostname.toLowerCase();
+      var known = ["instagram", "linkedin", "facebook", "google"];
+      for (var i = 0; i < known.length; i++) if (h.indexOf(known[i]) !== -1) return known[i];
+      return h.slice(0, 100);
+    } catch (e) { return "referencia"; }
+  }
+
+  /* Formulários -> API SARGTECH (contrato real: /api/public/leads/ebook e /contact) */
+  var CONSENT_VERSION = "site-2026-10-13";
+  document.querySelectorAll("form[data-kind]").forEach(function (form) {
+    var status = form.querySelector(".status"), btn = form.querySelector("button[type=submit]");
+    var label = btn.textContent;
+    function say(msg, cls) { status.textContent = msg; status.className = "status " + (cls || ""); }
+    function field(n) { var el = form.elements[n]; return el && typeof el.value === "string" ? el.value.trim() : ""; }
+    function success() {
+      form.reset();
+      say(form.dataset.success || "Recebido. Obrigado!", "ok");
+      if (form.dataset.kind === "ebook" && C.ebookDownloadUrl) {
+        var box = form.querySelector("[data-download]");
+        if (box) { box.href = C.ebookDownloadUrl; box.hidden = false; }
+        setTimeout(function () {
+          var a = document.createElement("a"); a.href = C.ebookDownloadUrl; a.download = ""; document.body.appendChild(a); a.click(); a.remove();
+        }, 400);
+      }
+      document.dispatchEvent(new CustomEvent("sargtech:lead", { detail: { kind: form.dataset.kind } }));
+    }
+    form.addEventListener("submit", function (ev) {
+      ev.preventDefault();
+      if (!form.reportValidity()) return;
+      if (field("website")) { say("Recebido.", "ok"); return; } /* honeypot */
+      var kind = form.dataset.kind, data;
+      var common = {
+        utm_source: ATTR.utm_source || null, utm_medium: ATTR.utm_medium || null, utm_campaign: ATTR.utm_campaign || null,
+        utm_content: ATTR.utm_content || null, utm_term: ATTR.utm_term || null,
+        referrer: ATTR.referrer || null, landing_url: ATTR.landing_url || null,
+        pagina: window.location.pathname, consentimento_versao: CONSENT_VERSION,
+        consentimento: form.elements.consentimento.checked === true
+      };
+      if (kind === "ebook") {
+        var wa = field("whatsapp").replace(/\D/g, "");
+        data = Object.assign({ nome: field("nome"), email: field("email").toLowerCase(), whatsapp: wa || null,
+          area_profissional: field("area_profissional"), origem: trafficSource() }, common);
+      } else {
+        data = Object.assign({ nome: field("nome"), email: field("email").toLowerCase(), empresa: field("empresa") || null,
+          telefone: field("telefone") || null, assunto: field("assunto"), mensagem: field("mensagem"),
+          interesse: field("interesse") || null, origem: form.dataset.origem || "site-contato" }, common);
+      }
+      var ep = (C.endpoints || {})[kind];
+      if (!C.apiBase || !ep) { say("Envio indisponível no momento. Escreva para " + C.contactEmail + ".", "err"); return; }
+      btn.disabled = true; btn.textContent = "Enviando..."; say("Registrando seu envio...", "");
+      var ctl = new AbortController(), t = setTimeout(function () { ctl.abort(); }, 15000);
+      fetch(C.apiBase + ep, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(data), signal: ctl.signal, credentials: "omit" })
+        .then(function (r) {
+          clearTimeout(t);
+          if (r.ok || r.status === 409) { success(); return; }  /* 409: contato já existente, não impede o download */
+          if (r.status === 429) { say("Muitas tentativas. Aguarde um instante e tente de novo.", "err"); return; }
+          if (r.status === 400 || r.status === 422) {
+            return r.json().then(function (j) { say(typeof j.detail === "string" ? j.detail : "Confira os campos e tente novamente.", "err"); },
+              function () { say("Confira os campos e tente novamente.", "err"); });
+          }
+          say("Não foi possível enviar agora. Tente de novo ou escreva para " + C.contactEmail + ".", "err");
+        })
+        .catch(function () { clearTimeout(t); say("Sem conexão com o servidor. Tente de novo ou escreva para " + C.contactEmail + ".", "err"); })
+        .then(function () { btn.disabled = false; btn.textContent = label; });
+    });
+  });
+
+  /* Pré-seleciona o interesse via ?interesse= */
+  var q = new URLSearchParams(window.location.search).get("interesse");
+  if (q) document.querySelectorAll("select[name=interesse]").forEach(function (s) {
+    Array.prototype.forEach.call(s.options, function (o) { if (o.value === q) s.value = q; });
+  });
+})();
