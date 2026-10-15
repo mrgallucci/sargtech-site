@@ -296,7 +296,7 @@ pages["/sarglab/ebook/"] = page("/sarglab/ebook/", "SargLab — IA para quem tem
 <section class="sec alt" id="baixar"><div class="container"><div class="grid g2" style="align-items:start">
 <div><div class="eyebrow">Download gratuito</div><h2 class="h2">Comece pelo guia.</h2><p class="lead">Preencha seus dados para receber acesso ao material <strong>IA para quem tem trabalho pra fazer</strong>.</p>
 <ul class="chk"><li>7 páginas</li><li>Método CLARO</li><li>4 prompts práticos</li><li>Semáforo de segurança</li></ul></div>
-<form class="form" data-kind="ebook" data-success="Cadastro realizado! Seu guia está pronto.">
+<form class="form" data-kind="ebook" data-success="Cadastro realizado! Enviamos o link de acesso ao e-book para o seu e-mail. Verifique também a caixa de spam.">
 <h3>Receba o guia gratuito</h3>
 {HONEY}
 <label>Nome *<input name="nome" required maxlength="100" autocomplete="name"></label>
@@ -307,7 +307,6 @@ pages["/sarglab/ebook/"] = page("/sarglab/ebook/", "SargLab — IA para quem tem
 <button class="btn btn-p" type="submit">Quero receber o guia gratuito {ARROW}</button>
 <p class="fine">Seus dados não devem ser compartilhados com terceiros para fins comerciais sem autorização.</p>
 <p class="status" role="status" aria-live="polite"></p>
-<a class="btn btn-d" data-download href="{EB_PDF}" download hidden>Clique aqui se o download não iniciar</a>
 </form></div></div></section>
 
 <section class="sec" id="treinamentos"><div class="container">
