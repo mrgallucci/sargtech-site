@@ -25,7 +25,7 @@ with sync_playwright() as p:
     check(d["consentimento"] is True and d["origem"] == "instagram" and d["area_profissional"] == "vendas", "consentimento e origem enviados")
     check((d["utm_source"], d["utm_medium"], d["utm_campaign"], d["utm_content"], d["utm_term"]) == ("instagram", "bio", "ebook-out", "post1", "ia"), "cinco utm_* capturados")
     check(d["landing_url"].endswith("utm_term=ia") and "referrer" in d, "landing_url e referrer enviados")
-    check(pg.is_visible("[data-download]") and pg.get_attribute("[data-download]", "href").endswith(".pdf"), "link de download do PDF aparece após o cadastro")
+    check(pg.locator("[data-download]").count() == 0 and "e-mail" in pg.inner_text(".status").lower(), "e-book não é liberado no site; acesso segue por e-mail")
     pg.goto("http://localhost:5598/contato/")
     pg.fill("[name=nome]", "Caio"); pg.fill("[name=email]", "caio@empresa.com"); pg.select_option("[name=assunto]", "CRM e gestão comercial")
     pg.fill("[name=mensagem]", "Quero organizar o funil comercial."); pg.check("[name=consentimento]"); pg.click("button[type=submit]")
@@ -38,7 +38,7 @@ with sync_playwright() as p:
     p2.fill("[name=nome]", "Eva"); p2.fill("[name=email]", "EVA@Teste.com"); p2.fill("[name=whatsapp]", "(24) 98888-7777"); p2.select_option("[name=area_profissional]", "rh"); p2.check("[name=consentimento]"); p2.click("button[type=submit]")
     p2.wait_for_selector(".status.ok"); d = got[-1][1]
     check(d["origem"] == "direto" and d["email"] == "eva@teste.com" and d["whatsapp"] == "+5524988887777", "sem UTM: origem direto, e-mail minúsculo e WhatsApp normalizado")
-    check(p2.is_visible("[data-download]"), "409 não impede o download")
+    check(p2.locator("[data-download]").count() == 0 and "e-mail" in p2.inner_text(".status").lower(), "lead existente também recebe orientação de acesso por e-mail")
     # WhatsApp ausente ou inválido: navegador/JS bloqueia antes de chamar a API
     mode["status"] = 200; got.clear(); p2.goto("http://localhost:5598/sarglab/ebook/")
     p2.fill("[name=nome]", "Sem Telefone"); p2.fill("[name=email]", "semfone@teste.com"); p2.select_option("[name=area_profissional]", "rh"); p2.check("[name=consentimento]")
