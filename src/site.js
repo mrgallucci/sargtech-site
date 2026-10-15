@@ -21,6 +21,11 @@
     return "+55" + digits;
   }
 
+  function validContactEmail(value) {
+    var email = (value || "").trim();
+    return /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email) && email.length <= 255;
+  }
+
   /* Menu móvel */
   var hd = document.querySelector(".hd"), bt = document.querySelector(".burger");
   if (hd && bt) {
@@ -115,13 +120,19 @@
         consentimento: form.elements.consentimento.checked === true
       };
       if (kind === "ebook") {
+        var email = field("email").toLowerCase();
+        if (!validContactEmail(email)) {
+          say("Informe um e-mail válido, por exemplo nome@empresa.com.br.", "err");
+          form.elements.email.focus();
+          return;
+        }
         var wa = normalizeBrWhatsapp(field("whatsapp"));
         if (!wa) {
           say("Informe um WhatsApp brasileiro válido com DDD.", "err");
           form.elements.whatsapp.focus();
           return;
         }
-        data = Object.assign({ nome: field("nome"), email: field("email").toLowerCase(), whatsapp: wa,
+        data = Object.assign({ nome: field("nome"), email: email, whatsapp: wa,
           area_profissional: field("area_profissional"), origem: trafficSource() }, common);
       } else {
         data = Object.assign({ nome: field("nome"), email: field("email").toLowerCase(), empresa: field("empresa") || null,
