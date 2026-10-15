@@ -6,6 +6,5 @@ window.SARGTECH_CONFIG = {
     ebook: "/api/public/leads/ebook",
     contact: "/api/public/leads/contact"
   },
-  ebookDownloadUrl: "/assets/downloads/sarglab-ia-para-quem-tem-trabalho-pra-fazer.pdf",
   contactEmail: "SARGrowth@proton.me"
 };
