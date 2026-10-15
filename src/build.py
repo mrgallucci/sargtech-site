@@ -302,7 +302,7 @@ pages["/sarglab/ebook/"] = page("/sarglab/ebook/", "SargLab — IA para quem tem
 <label>Nome *<input name="nome" required maxlength="100" autocomplete="name"></label>
 <label>E-mail *<input name="email" type="email" required maxlength="200" autocomplete="email"></label>
 <div class="f2"><label>Área profissional *<select name="area_profissional" required>{area_opts}</select></label>
-<label>WhatsApp <small>(opcional)</small><input name="whatsapp" type="tel" maxlength="30" autocomplete="tel" inputmode="tel" placeholder="(00) 00000-0000"></label></div>
+<label>WhatsApp *<input name="whatsapp" type="tel" required maxlength="30" autocomplete="tel" inputmode="tel" placeholder="(00) 00000-0000"></label></div>
 {ebook_consent()}
 <button class="btn btn-p" type="submit">Quero receber o guia gratuito {ARROW}</button>
 <p class="fine">Seus dados não devem ser compartilhados com terceiros para fins comerciais sem autorização.</p>
