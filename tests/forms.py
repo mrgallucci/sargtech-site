@@ -47,6 +47,11 @@ with sync_playwright() as p:
     p2.fill("[name=whatsapp]", "(24) 1234-5678"); p2.click("button[type=submit]")
     p2.wait_for_selector(".status.err")
     check(len(got) == 0 and "WhatsApp" in p2.inner_text(".status"), "WhatsApp inválido é rejeitado no front-end")
+    # E-mail com @ mas sem domínio completo (ex.: emailemail@email) também não pode virar Lead
+    got.clear(); p2.goto("http://localhost:5598/sarglab/ebook/")
+    p2.fill("[name=nome]", "Email Invalido"); p2.fill("[name=email]", "emailemail@email"); p2.fill("[name=whatsapp]", "(24) 99999-0000")
+    p2.select_option("[name=area_profissional]", "rh"); p2.check("[name=consentimento]"); p2.click("button[type=submit]"); time.sleep(.2)
+    check(len(got) == 0, "e-mail sem domínio completo é bloqueado antes da API")
     mode["status"] = 200
     got.clear(); pg.goto("http://localhost:5598/contato/")
     pg.evaluate("document.querySelector('[name=website]').value='spam'")
