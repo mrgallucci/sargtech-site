@@ -52,6 +52,23 @@
   }
   var ATTR = attribution();
 
+  /* O WhatsApp é obrigatório na captação do e-book. Mantemos esta regra também
+     no JS para a página gerada permanecer correta mesmo antes de regenerar o HTML. */
+  document.querySelectorAll('form[data-kind="ebook"]').forEach(function (form) {
+    var wa = form.elements.whatsapp;
+    if (!wa) return;
+    wa.required = true;
+    wa.setAttribute("aria-required", "true");
+    var label = wa.closest("label");
+    if (label) {
+      var optional = label.querySelector("small");
+      if (optional && /opcional/i.test(optional.textContent || "")) optional.remove();
+      if ((label.firstChild && label.firstChild.nodeType === 3) && label.firstChild.textContent.indexOf("*") === -1) {
+        label.firstChild.textContent = "WhatsApp *";
+      }
+    }
+  });
+
   /* Origem do tráfego (mesma regra da landing atual do e-book): utm_source, senão domínio do referrer, senão "direto". */
   function trafficSource() {
     var us = new URLSearchParams(window.location.search).get("utm_source") || ATTR.utm_source;
