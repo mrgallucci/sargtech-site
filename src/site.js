@@ -98,13 +98,6 @@
     function success() {
       form.reset();
       say(form.dataset.success || "Recebido. Obrigado!", "ok");
-      if (form.dataset.kind === "ebook" && C.ebookDownloadUrl) {
-        var box = form.querySelector("[data-download]");
-        if (box) { box.href = C.ebookDownloadUrl; box.hidden = false; }
-        setTimeout(function () {
-          var a = document.createElement("a"); a.href = C.ebookDownloadUrl; a.download = ""; document.body.appendChild(a); a.click(); a.remove();
-        }, 400);
-      }
       document.dispatchEvent(new CustomEvent("sargtech:lead", { detail: { kind: form.dataset.kind } }));
     }
     form.addEventListener("submit", function (ev) {
