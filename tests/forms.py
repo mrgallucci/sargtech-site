@@ -26,6 +26,8 @@ with sync_playwright() as p:
     check((d["utm_source"], d["utm_medium"], d["utm_campaign"], d["utm_content"], d["utm_term"]) == ("instagram", "bio", "ebook-out", "post1", "ia"), "cinco utm_* capturados")
     check(d["landing_url"].endswith("utm_term=ia") and "referrer" in d, "landing_url e referrer enviados")
     check(pg.locator("[data-download]").count() == 0 and "e-mail" in pg.inner_text(".status").lower(), "e-book não é liberado no site; acesso segue por e-mail")
+    pg.goto("http://localhost:5598/sarglab/#treinamentos")
+    check(pg.locator("#treinamentos").count() == 1, "CTA do PDF pode ancorar na seção de treinamentos da SargLab")
     pg.goto("http://localhost:5598/contato/")
     pg.fill("[name=nome]", "Caio"); pg.fill("[name=email]", "caio@empresa.com"); pg.select_option("[name=assunto]", "CRM e gestão comercial")
     pg.fill("[name=mensagem]", "Quero organizar o funil comercial."); pg.check("[name=consentimento]"); pg.click("button[type=submit]")
