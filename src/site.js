@@ -112,7 +112,7 @@
         pagina: window.location.pathname, consentimento_versao: CONSENT_VERSION,
         consentimento: form.elements.consentimento.checked === true
       };
-      if (kind === "ebook") {
+      if (kind === "ebook" || kind === "ebook-instagram") {
         var email = field("email").toLowerCase();
         if (!validContactEmail(email)) {
           say("Informe um e-mail válido, por exemplo nome@empresa.com.br.", "err");
