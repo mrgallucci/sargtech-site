@@ -1,0 +1,56 @@
+SARGLAB · INSTAGRAM SOB ANÁLISE · PROMPTS PARA COPIAR E COLAR
+================================================================
+
+PROMPT 1 — TRANSFORME ARQUIVOS EM PLANILHA
+(anexe followers_*.json e following.json)
+----------------------------------------------------------------
+Atue como um analista de dados especializado em organização de informações de redes sociais.
+
+Vou fornecer arquivos JSON exportados diretamente da minha conta do Instagram.
+
+Analise todos os arquivos de seguidores e seguindo enviados, considerando inclusive listas divididas em múltiplos arquivos.
+
+Identifique corretamente os nomes de usuário, remova duplicidades, normalize identificadores para comparação e preserve os nomes originais para exibição.
+
+Produza uma planilha organizada, preferencialmente em Excel (.xlsx), contendo:
+
+1. Resumo: total de seguidores, total de contas seguidas, total de conexões mútuas, total de contas que sigo mas não me seguem e total de seguidores que eu não sigo de volta.
+2. Não me seguem de volta: nome de usuário e link para o perfil.
+3. Eu não sigo de volta: nome de usuário e link para o perfil.
+4. Conexões mútuas: contas em que o seguimento é recíproco.
+5. Validação: nomes dos arquivos processados, quantidades encontradas e eventuais inconsistências.
+
+Inclua totais, percentuais quando fizerem sentido, cabeçalhos legíveis, filtros e organização visual profissional.
+
+Não invente usuários, métricas ou datas. Não confunda contas que não me seguem de volta com contas que deixaram de me seguir.
+
+Se o formato Excel não puder ser criado, entregue tabelas CSV compatíveis com planilhas e explique como utilizá-las.
+
+Antes de concluir, confira se os totais são coerentes com as listas fornecidas.
+
+Informe claramente qualquer limitação dos arquivos ou da ferramenta.
+
+
+PROMPT 2 — COMPARAR DUAS EXPORTAÇÕES (POSSÍVEIS UNFOLLOWS)
+(anexe os arquivos de seguidores das duas datas; troque [DATA 1] e [DATA 2])
+----------------------------------------------------------------
+Atue como analista de dados e compare dois conjuntos de arquivos de seguidores do Instagram.
+
+O primeiro conjunto corresponde à exportação antiga, de [DATA 1]. O segundo corresponde à exportação mais recente, de [DATA 2].
+
+Compare as listas completas de seguidores das duas datas.
+
+Identifique:
+
+- Contas presentes na primeira lista e ausentes na segunda: possíveis unfollows ou perdas de seguidores.
+- Contas novas, presentes na segunda lista e ausentes na primeira.
+- Total de seguidores em cada data.
+- Variação líquida e percentual entre os dois períodos.
+
+Crie uma planilha Excel com abas separadas para resumo, possíveis unfollows e novos seguidores.
+
+Inclua os usuários e links de perfil quando disponíveis.
+
+Não apresente as contas ausentes como unfollows confirmados quando não houver evidência suficiente. Considere as limitações de contas desativadas, alterações de nomes e diferenças entre exportações.
+
+Não invente resultados e sinalize inconsistências.
