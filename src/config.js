@@ -4,6 +4,7 @@ window.SARGTECH_CONFIG = {
   /* Contrato real da API (repositório gestao-inteligente-starter, backend/main.py). */
   endpoints: {
     ebook: "/api/public/leads/ebook",
+    "ebook-instagram": "/api/public/leads/ebook/instagram",
     contact: "/api/public/leads/contact"
   },
   contactEmail: "SARGrowth@proton.me"
