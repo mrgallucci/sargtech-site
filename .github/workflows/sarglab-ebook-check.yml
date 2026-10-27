@@ -1,0 +1,43 @@
+name: SargLab e-book check
+on:
+  push:
+    branches: [feature/sarglab-instagram-20261027]
+  pull_request:
+    branches: [main]
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Construir site estatico
+        run: python3 src/build.py
+      - name: Validar ambas landing pages e materiais
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+          root = Path('dist')
+          first = root/'sarglab/ebook/index.html'
+          second = root/'sarglab/instagram-sob-analise/index.html'
+          catalog = root/'sarglab/index.html'
+          pdf_old = root/'assets/downloads/sarglab-ia-para-quem-tem-trabalho-pra-fazer.pdf'
+          pdf_new = root/'assets/downloads/sarglab-instagram-sob-analise.pdf'
+          for file in (first, second, catalog, pdf_old, pdf_new):
+              assert file.is_file() and file.stat().st_size > 1000, f'Arquivo ausente ou vazio: {file}'
+          old = first.read_text(encoding='utf-8')
+          new = second.read_text(encoding='utf-8')
+          listpage = catalog.read_text(encoding='utf-8')
+          config = (root/'assets/config.js').read_text(encoding='utf-8')
+          js = (root/'assets/site.js').read_text(encoding='utf-8')
+          assert 'data-kind="ebook"' in old
+          assert 'data-kind="ebook-instagram"' in new
+          assert '/api/public/leads/ebook/instagram' in config
+          assert 'ebook-instagram' in js
+          assert '/sarglab/ebook/' in listpage and '/sarglab/instagram-sob-analise/' in listpage
+          assert 'download="sarglab-instagram-sob-analise.pdf"' not in new
+          assert re.search(rb'%PDF-', pdf_new.read_bytes()[:10])
+          print('Validacao estatica OK: primeira e segunda landing, PDF e endpoints.')
+          PY
