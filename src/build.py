@@ -223,7 +223,7 @@ pages["/sarglab/"] = page("/sarglab/", "SargLab | IA prática para quem trabalha
 <div class="sec-head"><div class="eyebrow">Produtos</div><h2 class="h2">Do conteúdo gratuito ao curso.</h2></div>
 <div class="grid g2">
 <article class="card"><span class="tag s">Guia gratuito</span><h3>IA para quem tem trabalho pra fazer</h3><p>Aprenda o Método CLARO com exemplos e prompts para usar IA de forma prática e responsável.</p><p style="margin-top:16px"><a class="btn btn-p" href="/sarglab/ebook/">Conhecer o guia</a></p></article>
-<article class="card"><span class="tag s">Novo · Guia gratuito</span><h3>Instagram sob análise</h3><p>Baixe os dados oficiais de seguidores, descubra quem não te segue de volta e compare exportações com ajuda da IA. Guia prático de 9 páginas.</p><p style="margin-top:16px"><a class="btn btn-p" href="/assets/downloads/sarglab-instagram-sob-analise.pdf" download="sarglab-instagram-sob-analise.pdf">Baixar o e-book grátis (PDF)</a></p><p><a href="/assets/downloads/sarglab-instagram-prompts.txt" download="sarglab-instagram-prompts.txt" style="display:inline-block;margin-top:10px;color:var(--brand);font-weight:700;text-decoration:underline">Baixar os 2 prompts para copiar (.txt)</a></p><p class="fine" style="margin-top:10px">Não requer fornecer a senha do Instagram. Resultados de unfollow exigem duas exportações.</p></article>
+<article class="card"><span class="tag s">Novo · Guia gratuito</span><h3>Instagram sob análise</h3><p>Baixe os dados oficiais de seguidores, descubra quem não te segue de volta e compare exportações com ajuda da IA. Guia prático de 9 páginas.</p><p style="margin-top:16px"><a class="btn btn-p" href="/sarglab/instagram-sob-analise/">Conhecer e receber o guia</a></p><p><a href="/sarglab/instagram-sob-analise/#cadastro" style="display:inline-block;margin-top:10px;color:var(--brand);font-weight:700;text-decoration:underline">Receber no meu e-mail</a></p><p class="fine" style="margin-top:10px">Não requer fornecer a senha do Instagram. Resultados de unfollow exigem duas exportações.</p></article>
 <article class="card"><span class="tag">Em produção</span><h3>Curso Básico</h3><p>Estruturar pedidos, comparar resultados, corrigir respostas e transformar o Método CLARO em rotina. Preço de lançamento: R$19,90.</p><p style="margin-top:16px"><a class="btn btn-o" href="/sarglab/cursos/#basico">Ver detalhes</a></p></article>
 <article class="card"><span class="tag">Em produção</span><h3>Programa Completo</h3><p>Curso Básico + Curso Avançado, com assistentes, fluxos de trabalho e automações sem código. Preço de lançamento: R$149,90.</p><p style="margin-top:16px"><a class="btn btn-o" href="/sarglab/cursos/#completo">Ver detalhes</a></p></article>
 </div>
@@ -322,6 +322,76 @@ pages["/sarglab/ebook/"] = page("/sarglab/ebook/", "SargLab — IA para quem tem
 <section class="sec alt"><div class="container"><div class="band on-dark"><div><div class="eyebrow">Uso responsável</div><h2>IA ajuda. A responsabilidade continua sendo sua.</h2><p>Confira informações importantes antes de usar uma resposta e evite inserir dados pessoais, credenciais ou informações confidenciais em ferramentas públicas de IA.</p></div><a class="btn btn-p" href="#baixar">Baixar o guia {ARROW}</a></div></div></section>
 ''')
 
+
+# ------------------------------------------------------------------ LANDING SARGLAB — INSTAGRAM SOB ANÁLISE
+# Página dedicada, separada do primeiro guia.
+# O cadastro desta página depende de um endpoint próprio no backend.
+pages["/sarglab/instagram-sob-analise/"] = page(
+    "/sarglab/instagram-sob-analise/",
+    "Instagram sob análise | E-book gratuito SargLab",
+    "Aprenda a baixar os dados oficiais do Instagram e analisá-los com inteligência artificial. Cadastre-se para receber o e-book gratuito por e-mail.",
+    f"""
+<section class="hero sub"><div class="container hero-in two on-dark">
+<div>
+<div class="eyebrow">SargLab · Guia prático gratuito</div>
+<h1>Instagram <em>sob análise.</em></h1>
+<p class="lead">Quem não te segue de volta? Descubra como organizar as suas listas de seguidores com Inteligência Artificial — sem instalar aplicativos suspeitos nem fornecer a senha.</p>
+<ul class="chk" style="color:#fff">
+<li>Aprenda a exportar somente os dados necessários do Instagram.</li>
+<li>Utilize o Método CLARO e prompts prontos para criar uma planilha.</li>
+<li>Entenda a diferença entre ausência de reciprocidade e possíveis unfollows.</li>
+</ul>
+<div class="cta"><a href="#cadastro" class="btn btn-p">Quero receber o guia grátis {ARROW}</a><a href="#aprendizado" class="btn btn-o">O que vou aprender?</a></div>
+<p class="fine" style="color:#A9B8CC;margin-top:14px">9 páginas · PDF · Gratuito · Entrega por e-mail</p>
+</div>
+<div class="card" style="background:#0F3D4C;border:1px solid rgba(255,255,255,.25);padding:34px;color:#F7F5F0;min-height:320px;display:flex;flex-direction:column;justify-content:center">
+<div style="color:#F28C28;font-size:12px;font-weight:700;letter-spacing:.15em;text-transform:uppercase">Guia SargLab</div>
+<div style="font-weight:800;font-size:clamp(28px,4vw,47px);line-height:1.1;margin-top:20px">Instagram<br>sob análise</div>
+<p style="margin-top:22px;color:#DCE8EB">Seus dados. Sua análise.<br>A IA como ferramenta.</p>
+<div style="margin-top:32px;color:#F28C28;font-weight:700">MÉTODO CLARO · SARGLAB</div>
+</div>
+</div></section>
+
+<section class="sec" id="aprendizado"><div class="container">
+<div class="sec-head"><div class="eyebrow">Aprenda fazendo</div><h2 class="h2">Seus dados podem contar uma história.</h2>
+<p class="lead">Um passo a passo para solicitar seus dados diretamente ao Instagram e transformar arquivos JSON em uma análise organizada com ajuda da IA.</p></div>
+<div class="grid g3">
+<div class="card"><span class="num">01</span><h3>Baixe só o necessário</h3><p>Selecione seguidores e seguindo na exportação oficial, sem carregar fotos, mensagens e outros dados desnecessários.</p></div>
+<div class="card"><span class="num">02</span><h3>Transforme listas em planilha</h3><p>Use um prompt estruturado pelo Método CLARO e uma IA que aceite arquivos para visualizar quem segue e quem não retribui.</p></div>
+<div class="card"><span class="num">03</span><h3>Compare mudanças</h3><p>Entenda como comparar duas exportações de datas diferentes para encontrar possíveis perdas e novos seguidores.</p></div>
+</div>
+<p class="note">Não seguir de volta não significa que a pessoa deixou de seguir você. Uma única exportação não mostra um histórico de unfollows.</p>
+</div></section>
+
+<section class="sec alt" id="cadastro"><div class="container"><div class="grid g2" style="align-items:start">
+<div>
+<div class="eyebrow">Receba no seu e-mail</div><h2 class="h2">Seu guia gratuito começa aqui.</h2>
+<p class="lead">Preencha seus dados para solicitar o e-book <strong>Instagram sob análise</strong>. O material será encaminhado para o e-mail informado.</p>
+<ul class="chk"><li>Guia didático de 9 páginas</li><li>Dois prompts prontos para aplicar com IA</li><li>Sem necessidade de fornecer a senha do Instagram</li></ul>
+<p class="fine">A SargLab não é afiliada ao Instagram nem à Meta. A eficácia depende dos dados exportados e das ferramentas escolhidas.</p>
+</div>
+<form class="form" data-kind="ebook-instagram" data-success="Solicitação registrada! Confira a caixa de entrada e o spam. Caso o material não chegue, entre em contato com a SARGTECH.">
+<h3>Receba Instagram sob análise</h3>
+{HONEY}
+<label>Nome *<input name="nome" required maxlength="100" autocomplete="name"></label>
+<label>E-mail *<input name="email" type="email" required maxlength="200" autocomplete="email" pattern="[^@\\s]+@[^@\\s]+\\.[^@\\s]+" title="Informe um e-mail completo, por exemplo nome@empresa.com.br"></label>
+<div class="f2">
+<label>Área profissional *<select name="area_profissional" required>{area_opts}</select></label>
+<label>WhatsApp *<input name="whatsapp" type="tel" required maxlength="30" autocomplete="tel" inputmode="tel" placeholder="(00) 00000-0000"></label>
+</div>
+{ebook_consent()}
+<button class="btn btn-p" type="submit">Solicitar meu e-book gratuito {ARROW}</button>
+<p class="fine">Os dados informados serão tratados conforme a <a href="/privacidade/">Política de Privacidade</a>.</p>
+<p class="status" role="status" aria-live="polite"></p>
+</form>
+</div></div></section>
+<section class="sec"><div class="container"><div class="band on-dark">
+<div><h2>Quer aprender mais sobre IA?</h2><p>Conheça outros materiais da SargLab para aplicar Inteligência Artificial no dia a dia.</p></div>
+<a class="btn btn-p" href="/sarglab/">Conhecer a SargLab {ARROW}</a>
+</div></div></section>
+"""
+)
+
 # ------------------------------------------------------------------ CURSOS
 INT_OPTS = ['<option value="" disabled selected>Selecione</option>', '<option value="sarglab-curso-basico">Curso Básico</option>', '<option value="sarglab-programa-completo">Programa Completo</option>', '<option value="sarglab-geral">Ainda não sei</option>']
 pages["/sarglab/cursos/"] = page("/sarglab/cursos/", "Treinamentos SargLab | Curso Básico e Programa Completo",
@@ -404,7 +474,6 @@ for path, content in pages.items():
 os.makedirs(os.path.join(DIST, "assets", "downloads"), exist_ok=True)
 shutil.copy(os.path.join(SRC, "downloads", "sarglab-ia-para-quem-tem-trabalho-pra-fazer.pdf"), os.path.join(DIST, "assets", "downloads"))
 shutil.copy(os.path.join(SRC, "downloads", "sarglab-instagram-sob-analise.pdf"), os.path.join(DIST, "assets", "downloads"))
-shutil.copy(os.path.join(SRC, "downloads", "sarglab-instagram-prompts.txt"), os.path.join(DIST, "assets", "downloads"))
 shutil.copy(os.path.join(SRC, "capa-ebook-sarglab.webp"), os.path.join(DIST, "assets", "capa-ebook-sarglab.webp"))
 shutil.copy(os.path.join(SRC, "og-image.png"), os.path.join(DIST, "assets", "og-image.png"))
 shutil.copy(os.path.join(SRC, "site.css"), os.path.join(DIST, "assets", "site.css"))
