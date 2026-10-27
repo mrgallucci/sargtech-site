@@ -204,7 +204,7 @@ pages["/sarglab/"] = page("/sarglab/", "SargLab | IA prática para quem trabalha
 <div style="max-width:760px"><div class="eyebrow">Produto educacional da SARGTECH</div>
 <h1>SargLab: IA prática <em>para quem trabalha.</em></h1>
 <p class="lead">Aprenda a usar inteligência artificial na rotina do trabalho com foco na prática, em linguagem simples e com método.</p>
-<div class="cta"><a class="btn btn-p" href="/sarglab/ebook/">Baixar o e-book gratuito {ARROW}</a><a class="btn btn-o" href="/sarglab/cursos/">Ver os treinamentos</a></div></div>
+<div class="cta"><a class="btn btn-p" href="#treinamentos">Ver e-books gratuitos {ARROW}</a><a class="btn btn-o" href="/sarglab/cursos/">Ver os treinamentos</a></div></div>
 </div></section>
 
 <section class="sec"><div class="container"><div class="grid g2">
@@ -221,8 +221,9 @@ pages["/sarglab/"] = page("/sarglab/", "SargLab | IA prática para quem trabalha
 
 <section class="sec" id="treinamentos"><div class="container">
 <div class="sec-head"><div class="eyebrow">Produtos</div><h2 class="h2">Do conteúdo gratuito ao curso.</h2></div>
-<div class="grid g3">
-<article class="card"><span class="tag s">Gratuito</span><h3>E-book SargLab</h3><p>Guia de 7 páginas com o Método CLARO, 4 prompts práticos e o semáforo de segurança.</p><p style="margin-top:16px"><a class="btn btn-p" href="/sarglab/ebook/">Baixar o e-book</a></p></article>
+<div class="grid g2">
+<article class="card"><span class="tag s">Gratuito · Edição 01</span><h3>IA para quem tem trabalho pra fazer</h3><p>Aprenda o Método CLARO com exemplos e prompts para usar IA de forma prática e responsável.</p><p style="margin-top:16px"><a class="btn btn-p" href="/sarglab/ebook/">Conhecer o guia</a></p></article>
+<article class="card"><span class="tag s">Novo · Edição 02 · Gratuito</span><h3>Instagram sob análise</h3><p>Baixe os dados oficiais de seguidores, descubra quem não te segue de volta e compare exportações com ajuda da IA. Guia prático de 9 páginas.</p><p style="margin-top:16px"><a class="btn btn-p" href="/assets/downloads/sarglab-instagram-sob-analise.pdf" download="sarglab-instagram-sob-analise.pdf">Baixar o e-book grátis (PDF)</a></p><p class="fine" style="margin-top:10px">Não requer fornecer a senha do Instagram. Resultados de unfollow exigem duas exportações.</p></article>
 <article class="card"><span class="tag">Em produção</span><h3>Curso Básico</h3><p>Estruturar pedidos, comparar resultados, corrigir respostas e transformar o Método CLARO em rotina. Preço de lançamento: R$19,90.</p><p style="margin-top:16px"><a class="btn btn-o" href="/sarglab/cursos/#basico">Ver detalhes</a></p></article>
 <article class="card"><span class="tag">Em produção</span><h3>Programa Completo</h3><p>Curso Básico + Curso Avançado, com assistentes, fluxos de trabalho e automações sem código. Preço de lançamento: R$149,90.</p><p style="margin-top:16px"><a class="btn btn-o" href="/sarglab/cursos/#completo">Ver detalhes</a></p></article>
 </div>
@@ -402,6 +403,7 @@ for path, content in pages.items():
     open(out, "w", encoding="utf-8").write(content)
 os.makedirs(os.path.join(DIST, "assets", "downloads"), exist_ok=True)
 shutil.copy(os.path.join(SRC, "downloads", "sarglab-ia-para-quem-tem-trabalho-pra-fazer.pdf"), os.path.join(DIST, "assets", "downloads"))
+shutil.copy(os.path.join(SRC, "downloads", "sarglab-instagram-sob-analise.pdf"), os.path.join(DIST, "assets", "downloads"))
 shutil.copy(os.path.join(SRC, "capa-ebook-sarglab.webp"), os.path.join(DIST, "assets", "capa-ebook-sarglab.webp"))
 shutil.copy(os.path.join(SRC, "og-image.png"), os.path.join(DIST, "assets", "og-image.png"))
 shutil.copy(os.path.join(SRC, "site.css"), os.path.join(DIST, "assets", "site.css"))
